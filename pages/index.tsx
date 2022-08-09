@@ -1,7 +1,7 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import ConnectWallet from '../src/components/ConnectWallet/ConnectWallet'
-import styles from "../styles/Home.module.css";
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import ConnectWallet from '../src/components/ConnectWallet/ConnectWallet';
+import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
   return (

@@ -1,13 +1,12 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import { useWeb3React } from "@web3-react/core";
-import { Web3Provider } from "@ethersproject/providers";
-import { InjectedConnector } from "@web3-react/injected-connector";
+import { useWeb3React } from '@web3-react/core';
+import { Web3Provider } from '@ethersproject/providers';
+import { InjectedConnector } from '@web3-react/injected-connector';
 
 const ConnectWallet = () => {
   const injectedConnector = new InjectedConnector({});
-  const { chainId, account, activate, active, library } =
-    useWeb3React<Web3Provider>();
+  const { chainId, account, activate, active } = useWeb3React<Web3Provider>();
   const onClick = () => {
     activate(injectedConnector);
   };
@@ -31,5 +30,4 @@ const ConnectWallet = () => {
   );
 };
 
-
-export default ConnectWallet
+export default ConnectWallet;
