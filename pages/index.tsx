@@ -1,6 +1,8 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import ConnectWallet from '../src/components/ConnectWallet/ConnectWallet';
+import ConnectWalletWrapper from '../src/components/ConnectWalletWrapper/ConnectWalletWrapper';
+import LensCreateProfile from '../src/components/LensCreateProfile/LensCreateProfile';
+import LensLogin from '../src/components/LensLogin/LensLogin';
 import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
@@ -13,10 +15,12 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Hello World</h1>
-        <div>
-          <ConnectWallet />
-        </div>
+        <h1 className={styles.title}>Kauri.io</h1>
+        <ConnectWalletWrapper>
+          {/* <Ping /> */}
+          <LensLogin />
+          <LensCreateProfile />
+        </ConnectWalletWrapper>
       </main>
     </div>
   );

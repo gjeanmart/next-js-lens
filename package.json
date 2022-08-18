@@ -11,9 +11,11 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@apollo/client": "^3.6.9",
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
     "ethers": "^5.6.9",
+    "graphql": "^16.5.0",
     "next": "12.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0"
@@ -24,8 +26,8 @@
     "@types/react-dom": "18.0.6",
     "eslint": "8.21.0",
     "eslint-config-next": "12.2.4",
+    "husky": "^8.0.1",
     "prettier": "^2.7.1",
-    "typescript": "4.7.4",
-    "husky": "^8.0.1"
+    "typescript": "4.7.4"
   }
 }
