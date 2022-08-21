@@ -11,13 +11,14 @@ const getStateFromLocStorage = (): IState | null => {
 };
 
 export interface IState {
-  accessToken?: string;
-  refreshToken?: string;
+  accessToken?: string
+  refreshToken?: string
+  profileId?: string
 }
 
 export interface IAction {
-  type: string; //TODO enum
-  data: any; //TODO
+  type: string //TODO enum
+  data?: any //TODO
 }
 
 let initialState: IState = {};

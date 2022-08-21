@@ -1,18 +1,30 @@
-import { useContext, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import {
   executeMutation,
   LENS_CREATE_PROFILE_GQL,
-  LENS_CREATE_SET_DEFAULT_PROFILE_TYPED_DATA_GQL,
 } from '../../clients/LensGraphQL';
 import { stripZeros } from '../../utils/ethereum';
+import { useLensLogin } from '../../utils/useLensLogin';
 import Loading from '../Utils/Loading/Loading';
+import { useProvider } from 'wagmi';
+import { useGlobalStore } from '../../utils/state/StoreApi';
 
 const LensCreateProfile = () => {
   const [handle, setHandle] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+  const { setProfileId } = useGlobalStore();
+  const lensLogin = useLensLogin();
+  const router = useRouter();
+  const provider = useProvider();
+
+  useEffect(() => {
+    if (lensLogin && !lensLogin.accessToken) {
+      router.push('/settings/signin');
+    }
+  }, [lensLogin, router]);
 
   const createProfile = async () => {
-
     try {
       setLoading(true);
 
@@ -25,27 +37,19 @@ const LensCreateProfile = () => {
         }
       );
 
-      const txHash = createProfileResponse.data.createProfile.txHash
-      console.log("txHash="+txHash)
-      // const receipt = await walletContext.provider.waitForTransaction(txHash)
-      // console.log("receipt="+JSON.stringify(receipt))
+      const txHash = createProfileResponse.data.createProfile.txHash;
+      console.log('txHash=' + txHash);
+      const receipt = await provider.waitForTransaction(txHash);
+      console.log('receipt=' + JSON.stringify(receipt));
 
-      // const profileId = stripZeros(receipt.logs[0].topics[3])
-      // console.log("profileId="+profileId)
+      const profileId = stripZeros(receipt.logs[0].topics[3]);
+      console.log('profileId=' + profileId);
+      setProfileId(profileId);
+      router.push('/profile/my');
 
-      // const setDefaultProfileResponse = await executeMutation(
-      //   LENS_CREATE_SET_DEFAULT_PROFILE_TYPED_DATA_GQL,
-      //   {
-      //     request: {
-      //       profileId,
-      //     },
-      //   }
-      // );
-      // console.log("setDefaultProfileResponse=="+JSON.stringify(setDefaultProfileResponse))
       setLoading(false);
-
-    } catch(exception) {
-      console.log(exception)
+    } catch (exception) {
+      console.log(exception);
       setLoading(false);
     }
   };

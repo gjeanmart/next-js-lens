@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import styles from '../../styles/Header.module.css';
-import { useLensLogin } from '../../utils/useLensLogin';
+import { useLensLogin, useLensLogout } from '../../utils/useLensLogin';
 import ConnectWallet from '../ConnectWallet/ConnectWallet';
 import Loading from '../Utils/Loading/Loading';
 
@@ -53,9 +53,10 @@ function NavItem(props: any) {
 
 export default function Header() {
   const lensLogin = useLensLogin();
+  const { logout } = useLensLogout();
 
-  if(!lensLogin) {
-    return <Loading />
+  if (!lensLogin) {
+    return <Loading />;
   }
 
   return (
@@ -64,9 +65,20 @@ export default function Header() {
         <ul>
           {path.map((value) => {
             return (
-              <NavItem key={value.id} value={value} isConnected={lensLogin.isConnected} />
+              <NavItem
+                key={value.id}
+                value={value}
+                isConnected={lensLogin.isConnected}
+              />
             );
           })}
+          {lensLogin.isConnected && (
+            <li>
+              <a href="" role="button" onClick={logout}>
+                Logout
+              </a>
+            </li>
+          )}
         </ul>
       </nav>
       <ConnectWallet />
