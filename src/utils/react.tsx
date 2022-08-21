@@ -1,6 +1,5 @@
 import { cloneElement, isValidElement } from "react";
 
-
 export const addPropsToChildren = (children: any, props: any) => {
     const addPropsToChild = (child: any, props: any) => {
       if (isValidElement(child)) {

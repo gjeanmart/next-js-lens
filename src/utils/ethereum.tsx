@@ -1,11 +1,5 @@
-import { Web3Provider } from '@ethersproject/providers';
+const { ethers } = require("ethers");
 
-export const getLibrary = (provider: any): Web3Provider => {
-  const library = new Web3Provider(provider);
-  library.pollingInterval = 12000;
-  return library;
-};
-
-export const signText = (provider: Web3Provider, text: string) => {
-    return provider.getSigner().signMessage(text);
-  }
+export const stripZeros = (data: string) => {
+  return ethers.utils.hexStripZeros(data)
+}

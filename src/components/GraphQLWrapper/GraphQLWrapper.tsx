@@ -10,7 +10,7 @@ const GraphQLWrapper = (props: any) => {
   if (loading) return <Loading />;
   if (error) return <Error error={error} />;
 
-  return <>{addPropsToChildren(children, { data })}</>;
+  return addPropsToChildren(children, { data });
 };
 
 export default GraphQLWrapper;
