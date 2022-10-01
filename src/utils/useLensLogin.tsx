@@ -4,6 +4,7 @@ import { useAccount, useDisconnect } from 'wagmi';
 import { useGlobalStore } from './state/StoreApi';
 
 interface LensLogin {
+  loading: boolean
   isConnected: boolean;
   accountAddress?: string;
   profileId?: string
@@ -12,7 +13,7 @@ interface LensLogin {
 }
 
 export const useLensLogin = (redirect?: boolean) => {
-  const [lensLogin, setLensLogin] = useState<LensLogin | null>();
+  const [lensLogin, setLensLogin] = useState<LensLogin>({loading: true, isConnected: false});
   const account = useAccount();
   const { accessToken, refreshToken, profileId } = useGlobalStore();
   const router = useRouter();
@@ -20,6 +21,7 @@ export const useLensLogin = (redirect?: boolean) => {
   useEffect(() => {
     const isConnected = account.isConnected && accessToken != null && profileId != null
     setLensLogin({
+      loading: false,
       isConnected,
       accountAddress: account.address,
       profileId,
@@ -50,3 +52,4 @@ export const useLensLogout = () => {
 
   return { logout };
 };
+

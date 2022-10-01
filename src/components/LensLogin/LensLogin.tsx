@@ -29,7 +29,7 @@ const LensLogin = () => {
   const lensLogin = useLensLogin(true);
   const { signMessageAsync } = useSignMessage();
 
-  if (!lensLogin) {
+  if (lensLogin.loading) {
     return <Loading />;
   }
 
